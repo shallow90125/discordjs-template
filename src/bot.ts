@@ -1,9 +1,8 @@
 import { Client, GatewayIntentBits, Partials } from "discord.js";
 import "dotenv/config";
-import * as commandModules from "./commands/index.js";
 import * as eventModules from "./events/index.js";
-import { DiscordCommand } from "./interfaces/DiscordCommand.js";
 import { DiscordEvent } from "./interfaces/DiscordEvent";
+import { getCommands } from "./utils/get-commands.js";
 
 const client = new Client({
   intents: [
@@ -23,12 +22,7 @@ client.on("ready", (client) => {
   console.log(`${client.token}`);
 });
 
-const commands: DiscordCommand[] = [];
-
-for (let i of Object.keys(commandModules) as (keyof typeof commandModules)[]) {
-  const command: DiscordCommand = commandModules[i];
-  commands.push(command);
-}
+const commands = getCommands();
 
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return;

@@ -1,21 +1,15 @@
-import {
-  REST,
-  RESTPostAPIChatInputApplicationCommandsJSONBody,
-  Routes,
-} from "discord.js";
+import { REST, Routes } from "discord.js";
 import "dotenv/config";
-import * as commandModules from "./commands/index.js";
-import { DiscordCommand } from "./interfaces/DiscordCommand";
+import { getCommands } from "./utils/get-commands.js";
 
-const commands: RESTPostAPIChatInputApplicationCommandsJSONBody[] = [];
-
-for (let i of Object.keys(commandModules) as (keyof typeof commandModules)[]) {
-  const command: DiscordCommand = commandModules[i];
-  commands.push(command.command.toJSON());
-}
+const commands = getCommands().map((command) => command.command.toJSON());
 
 (async () => {
-  if (!process.env.TOKEN || !process.env.CLIENT_ID) return;
+  if (!process.env.TOKEN || !process.env.CLIENT_ID) {
+    console.log(`token: ${process.env.TOKEN}`);
+    console.log(`clientId: ${process.env.CLIENT_ID}`);
+    return;
+  }
 
   console.log(`deploy global: start x${commands.length}`);
 
