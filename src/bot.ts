@@ -18,11 +18,13 @@ const client = new Client({
   partials: [Partials.Message],
 });
 
-client.on("ready", (client) => {
-  console.log(`${client.token}`);
-});
-
 const commands = getCommands();
+
+for (let i of Object.keys(eventModules) as (keyof typeof eventModules)[]) {
+  const event: DiscordEvent<any> = eventModules[i];
+
+  client.on(event.event, (...args) => event.listener(...args));
+}
 
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
@@ -44,11 +46,5 @@ client.on("interactionCreate", async (interaction) => {
       .catch(() => {});
   }
 });
-
-for (let i of Object.keys(eventModules) as (keyof typeof eventModules)[]) {
-  const event: DiscordEvent<any> = eventModules[i];
-
-  client.on(event.event, (...args) => event.listener(...args));
-}
 
 client.login(process.env.TOKEN);
