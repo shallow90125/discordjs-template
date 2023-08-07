@@ -6,7 +6,16 @@ import { DiscordCommand } from "./interfaces/DiscordCommand.js";
 import { DiscordEvent } from "./interfaces/DiscordEvent";
 
 const client = new Client({
-  intents: [GatewayIntentBits.Guilds],
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.GuildVoiceStates,
+    GatewayIntentBits.GuildPresences,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.GuildMessageReactions,
+    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.DirectMessages,
+  ],
   partials: [Partials.Message],
 });
 
