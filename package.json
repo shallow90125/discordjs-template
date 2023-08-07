@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "pnpm tsc --project ./tsconfig.json && node ./out/index.js",
+    "start": "pnpm tsc --project ./tsconfig.json && node ./out/index.js",
     "deploy-global": "pnpm tsc --project ./tsconfig.json && node ./out/deploy-global.js",
     "deploy-local": "pnpm tsc --project ./tsconfig.json && node ./out/deploy-local.js"
   },
