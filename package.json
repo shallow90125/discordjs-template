@@ -1,29 +1,17 @@
 {
-  "name": "discord-bot-template",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "pnpm tsc --project ./tsconfig.json && node ./out/index.js",
-    "deploy-global": "pnpm tsc --project ./tsconfig.json && node ./out/deploy-global.js",
-    "deploy-local": "pnpm tsc --project ./tsconfig.json && node ./out/deploy-local.js"
+    "start": "pnpm tsx ./src/index.ts",
+    "deploy-global": "pnpm tsx ./src/deploy-global.ts",
+    "deploy-local": "pnpm tsx ./src/deploy-local.ts"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "@types/node": "^20.4.7",
-    "discord.js": "^14.12.1",
-    "dotenv": "^16.3.1",
-    "typescript": "^5.1.6"
+    "@types/node": "^20.5.4",
+    "discord.js": "^14.13.0",
+    "dotenv": "^16.3.1"
   },
   "devDependencies": {
-    "eslint": "^8.46.0",
-    "eslint-config-prettier": "^8.10.0",
-    "prettier": "^3.0.1",
+    "prettier": "^3.0.2",
     "prettier-plugin-organize-imports": "^3.2.3",
     "tsx": "^3.12.7"
-  },
-  "type": "module"
+  }
 }
