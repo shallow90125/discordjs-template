@@ -1,8 +1,9 @@
 import * as eventModules from "@/events";
 import { DiscordEvent } from "@/interfaces";
-import { getCommands } from "@/utils/get-commands";
+import { getCommands } from "@/utils";
 import { Client, GatewayIntentBits, Partials } from "discord.js";
 import "dotenv/config";
+
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
