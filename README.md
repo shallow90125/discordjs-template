@@ -1,11 +1,12 @@
 # Discord Bot Template
 
-Template for Discord bot development with TypeScript and pnpm.
+Template for Discord bot development with TypeScript and pnpm
 
 ### Features
 - TypeScript
 - pnpm
 - Support for sharding
+- Support import path aliases
 
 ### Create .env and add properties
 ```
