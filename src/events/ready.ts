@@ -1,4 +1,4 @@
-import { DiscordEvent } from "../interfaces/DiscordEvent";
+import { DiscordEvent } from "@/interfaces";
 
 export const ready: DiscordEvent<"ready"> = {
   event: "ready",
