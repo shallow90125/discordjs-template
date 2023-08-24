@@ -1,8 +1,8 @@
+import * as eventModules from "@/events";
+import { DiscordEvent } from "@/interfaces";
+import { getCommands } from "@/utils";
 import { Client, GatewayIntentBits, Partials } from "discord.js";
 import "dotenv/config";
-import * as eventModules from "./events/index.js";
-import { DiscordEvent } from "./interfaces/DiscordEvent";
-import { getCommands } from "./utils/get-commands.js";
 
 const client = new Client({
   intents: [
@@ -23,7 +23,7 @@ const commands = getCommands();
 for (let i of Object.keys(eventModules) as (keyof typeof eventModules)[]) {
   const event: DiscordEvent<any> = eventModules[i];
 
-  client.on(event.event, (...args) => event.listener(...args));
+  client.on(event.name, (...args) => event.process(...args));
 }
 
 client.on("interactionCreate", async (interaction) => {

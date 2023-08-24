@@ -1,6 +1,6 @@
+import { getCommands } from "@/utils";
 import { REST, Routes } from "discord.js";
 import "dotenv/config";
-import { getCommands } from "./utils/get-commands.js";
 
 const commands = getCommands().map((command) => command.command.toJSON());
 

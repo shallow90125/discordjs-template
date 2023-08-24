@@ -1,8 +1,8 @@
-import { DiscordEvent } from "../interfaces/DiscordEvent";
+import { DiscordEvent } from "@/interfaces";
 
 export const ready: DiscordEvent<"ready"> = {
-  event: "ready",
-  listener: (client) => {
+  name: "ready",
+  process: (client) => {
     console.log(`ready: ${client.user.id}`);
   },
 };

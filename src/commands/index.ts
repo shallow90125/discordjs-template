@@ -1,1 +1,1 @@
-export { ababa } from "./ababa.js";
+export { ababa } from "./ababa";

@@ -1,5 +1,5 @@
+import { DiscordCommand } from "@/interfaces";
 import { SlashCommandBuilder } from "discord.js";
-import { DiscordCommand } from "../interfaces/DiscordCommand";
 
 export const ababa: DiscordCommand = {
   command: new SlashCommandBuilder().setName("ababa").setDescription("ababa"),
