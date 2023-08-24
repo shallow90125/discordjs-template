@@ -4,6 +4,6 @@ import { SlashCommandBuilder } from "discord.js";
 export const ababa: DiscordCommand = {
   command: new SlashCommandBuilder().setName("ababa").setDescription("ababa"),
   proccess: async (interaction) => {
-    return await interaction.reply("ababa");
+    await interaction.reply("ababa");
   },
 };
