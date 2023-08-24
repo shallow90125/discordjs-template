@@ -23,7 +23,7 @@ const commands = getCommands();
 for (let i of Object.keys(eventModules) as (keyof typeof eventModules)[]) {
   const event: DiscordEvent<any> = eventModules[i];
 
-  client.on(event.event, (...args) => event.listener(...args));
+  client.on(event.name, (...args) => event.process(...args));
 }
 
 client.on("interactionCreate", async (interaction) => {
