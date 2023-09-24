@@ -36,7 +36,7 @@ client.on("interactionCreate", async (interaction) => {
   if (!command) return;
 
   try {
-    await command.proccess(interaction);
+    await command.process(interaction);
   } catch (error) {
     await interaction
       .reply({

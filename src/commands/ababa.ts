@@ -3,7 +3,7 @@ import { SlashCommandBuilder } from "discord.js";
 
 export const ababa: DiscordCommand = {
   command: new SlashCommandBuilder().setName("ababa").setDescription("ababa"),
-  proccess: async (interaction) => {
+  process: async (interaction) => {
     await interaction.reply("ababa");
   },
 };
