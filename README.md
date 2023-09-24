@@ -5,6 +5,7 @@ Template for Discord bot development with TypeScript and pnpm
 ### Features
 - TypeScript
 - pnpm
+- esbuild
 - Support for sharding
 - Support import path aliases
 
@@ -17,7 +18,10 @@ GUILD_ID=your-guild-id
 
 ### Commands
 
-- Start bot
+- Start bot (for development)
+  `pnpm dev`
+
+- Start bot with deploying commands to global (for production)
   `pnpm start`
 
 - Deploy commands to local
