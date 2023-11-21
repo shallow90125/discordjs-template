@@ -1,8 +1,10 @@
 # Discord Bot Template
 
-Template for Discord bot development with TypeScript and pnpm
+Template for Discord bot development with discord.js
 
 ### Features
+
+- discord.js
 - TypeScript
 - pnpm
 - esbuild
@@ -10,6 +12,7 @@ Template for Discord bot development with TypeScript and pnpm
 - Support import path aliases
 
 ### Create .env and add properties
+
 ```
 TOKEN=your-token
 CLIENT_ID=your-client-id

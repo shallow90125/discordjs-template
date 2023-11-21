@@ -6,7 +6,7 @@ const commands = getCommands().map((command) => command.command.toJSON());
 (async () => {
   console.log(`deploy global: start x${commands.length}`);
 
-  const rest = new REST({ version: "10" }).setToken(zEnv.TOKEN);
+  const rest = new REST().setToken(zEnv.TOKEN);
 
   try {
     await rest.put(Routes.applicationCommands(zEnv.CLIENT_ID), {
