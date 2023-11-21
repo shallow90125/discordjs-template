@@ -1,9 +1,9 @@
-import { DiscordCommand } from "@/interfaces";
+import { DiscordCommand } from "@/types";
 import { SlashCommandBuilder } from "discord.js";
 
-export const ababa: DiscordCommand = {
-  command: new SlashCommandBuilder().setName("ababa").setDescription("ababa"),
-  process: async (interaction) => {
+export const ababa = new DiscordCommand(
+  new SlashCommandBuilder().setName("ababa").setDescription("ababa"),
+  async (interaction) => {
     await interaction.reply("ababa");
   },
-};
+);

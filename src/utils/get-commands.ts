@@ -1,5 +1,5 @@
 import * as commands from "@/commands";
-import { DiscordCommand } from "@/interfaces";
+import { DiscordCommand } from "@/types";
 
 export function getCommands(): DiscordCommand[] {
   return (Object.keys(commands) as (keyof typeof commands)[]).map(

@@ -6,15 +6,16 @@
     "deploy-local": "tsx ./src/deploy-local.ts"
   },
   "dependencies": {
-    "@types/node": "^20.6.4",
-    "discord.js": "^14.13.0",
+    "@types/node": "^20.9.3",
+    "discord.js": "^14.14.1",
     "dotenv": "^16.3.1",
-    "esbuild": "^0.19.3",
-    "tsx": "^3.12.10",
-    "typescript": "^5.2.2"
+    "esbuild": "^0.19.7",
+    "tsx": "^3.14.0",
+    "typescript": "^5.3.2",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
-    "prettier": "^3.0.3",
-    "prettier-plugin-organize-imports": "^3.2.3"
+    "prettier": "^3.1.0",
+    "prettier-plugin-organize-imports": "^3.2.4"
   }
 }
