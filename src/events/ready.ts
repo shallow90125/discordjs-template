@@ -1,8 +1,5 @@
-import { DiscordEvent } from "@/interfaces";
+import { DiscordEvent } from "@/types";
 
-export const ready: DiscordEvent<"ready"> = {
-  name: "ready",
-  process: async (client) => {
-    console.log(`ready: ${client.user.id}`);
-  },
-};
+export const ready = new DiscordEvent("ready", async (client) => {
+  console.log(`ready: ${client.user.id}`);
+});

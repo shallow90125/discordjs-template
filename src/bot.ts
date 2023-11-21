@@ -1,8 +1,6 @@
-import * as eventModules from "@/events";
-import { DiscordEvent } from "@/interfaces";
-import { getCommands } from "@/utils";
+import * as events from "@/events";
+import { getCommands, zEnv } from "@/utils";
 import { Client, GatewayIntentBits, Partials } from "discord.js";
-import "dotenv/config";
 
 const client = new Client({
   intents: [
@@ -20,11 +18,11 @@ const client = new Client({
 
 const commands = getCommands();
 
-for (let i of Object.keys(eventModules) as (keyof typeof eventModules)[]) {
-  const event: DiscordEvent<any> = eventModules[i];
-
-  client.on(event.name, (...args) => event.process(...args));
-}
+(Object.keys(events) as (keyof typeof events)[]).map((key) =>
+  client.on(events[key].event, (...args) =>
+    events[key].listener(...args).catch(() => {}),
+  ),
+);
 
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
@@ -35,16 +33,15 @@ client.on("interactionCreate", async (interaction) => {
 
   if (!command) return;
 
-  try {
-    await command.process(interaction);
-  } catch (error) {
-    await interaction
-      .reply({
-        content: `${error}`,
-        ephemeral: true,
-      })
-      .catch(() => {});
-  }
+  await command.listener(interaction).catch(
+    async (error) =>
+      await interaction
+        .reply({
+          content: `${error}`,
+          ephemeral: true,
+        })
+        .catch(() => {}),
+  );
 });
 
-client.login(process.env.TOKEN);
+client.login(zEnv.TOKEN);
