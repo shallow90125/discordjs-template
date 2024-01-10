@@ -26,6 +26,7 @@ const commands = getCommands();
 
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
+  if (!interaction.inCachedGuild()) return;
 
   const command = commands.find(
     (command) => command.command.name === interaction.commandName,

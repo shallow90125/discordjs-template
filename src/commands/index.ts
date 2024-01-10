@@ -1,1 +1,1 @@
-export { ababa } from "./ababa";
+export { command } from "./command";
