@@ -1,9 +1,9 @@
 import { getCommands, zEnv } from "@/utils";
 import { REST, Routes } from "discord.js";
 
-const commands = getCommands().map((command) => command.command.toJSON());
-
 (async () => {
+  const commands = getCommands().map((command) => command.command.toJSON());
+
   console.log(`deploy local: start x${commands.length}`);
 
   const rest = new REST().setToken(zEnv.TOKEN);

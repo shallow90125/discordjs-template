@@ -28,7 +28,7 @@ client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
 
   const command = commands.find(
-    (command) => command.command.name == interaction.commandName,
+    (command) => command.command.name === interaction.commandName,
   );
 
   if (!command) return;
