@@ -20,8 +20,8 @@ const commands = getCommands();
 
 (Object.keys(events) as (keyof typeof events)[]).map((key) =>
   client.on(events[key].event, (...args) =>
-    events[key].listener(...args).catch(() => {}),
-  ),
+    events[key].listener(...args).catch(() => {})
+  )
 );
 
 client.on("interactionCreate", async (interaction) => {
@@ -29,7 +29,7 @@ client.on("interactionCreate", async (interaction) => {
   if (!interaction.inCachedGuild()) return;
 
   const command = commands.find(
-    (command) => command.command.name === interaction.commandName,
+    (command) => command.command.name === interaction.commandName
   );
 
   if (!command) return;
@@ -41,7 +41,7 @@ client.on("interactionCreate", async (interaction) => {
           content: `${error}`,
           ephemeral: true,
         })
-        .catch(() => {}),
+        .catch(() => {})
   );
 });
 

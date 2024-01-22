@@ -12,6 +12,6 @@ const envSchema = z.object({
 export const zEnv = envSchema.parse(
   Object.assign(
     {},
-    ...Object.keys(process.env).map((v) => ({ [v]: process.env[v] })),
-  ),
+    ...Object.keys(process.env).map((v) => ({ [v]: process.env[v] }))
+  )
 );

@@ -9,11 +9,11 @@ import { ChatInputCommandInteraction } from "discord.js";
 export function getCommands(): DiscordCommand<
   | ((interaction: ChatInputCommandInteraction<"cached">) => Promise<void>)
   | {
-      subcommands: DiscordSubcommand[];
-      subcommandGroups: DiscordSubcommandGroup[];
+      subcommands: [DiscordSubcommand, ...DiscordSubcommand[]];
+      subcommandGroups: [DiscordSubcommandGroup, ...DiscordSubcommandGroup[]];
     }
 >[] {
   return (Object.keys(commands) as (keyof typeof commands)[]).map(
-    (key) => commands[key],
+    (key) => commands[key]
   );
 }

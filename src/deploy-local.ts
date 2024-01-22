@@ -13,7 +13,7 @@ import { REST, Routes } from "discord.js";
       Routes.applicationGuildCommands(zEnv.CLIENT_ID, zEnv.GUILD_ID),
       {
         body: commands,
-      },
+      }
     );
 
     console.log(`deploy local: success x${commands.length}`);

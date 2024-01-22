@@ -6,27 +6,38 @@ import {
 import { DiscordSubcommand } from "./DiscordSubcommand";
 import { DiscordSubcommandGroup } from "./DiscordSubcommandGroup";
 
+type PartialRequire<O, K extends keyof O> = {
+  [P in K]-?: O[P];
+} & O;
+
+type RequireOne<T, K extends keyof T = keyof T> = K extends keyof T
+  ? PartialRequire<T, K>
+  : never;
+
 export class DiscordCommand<
   T extends
     | ((interaction: ChatInputCommandInteraction<"cached">) => Promise<void>)
-    | {
-        subcommands: DiscordSubcommand[];
-        subcommandGroups: DiscordSubcommandGroup[];
-      },
+    | RequireOne<{
+        subcommands?: [DiscordSubcommand, ...DiscordSubcommand[]];
+        subcommandGroups?: [
+          DiscordSubcommandGroup,
+          ...DiscordSubcommandGroup[]
+        ];
+      }>
 > {
   readonly command: T extends (
-    interaction: ChatInputCommandInteraction<"cached">,
+    interaction: ChatInputCommandInteraction<"cached">
   ) => Promise<void>
     ? SlashCommandBuilder
     : SlashCommandSubcommandsOnlyBuilder;
   readonly listener: (
-    interaction: ChatInputCommandInteraction<"cached">,
+    interaction: ChatInputCommandInteraction<"cached">
   ) => Promise<void>;
-  readonly subcommandGroups: DiscordSubcommandGroup[];
-  readonly subcommands: DiscordSubcommand[];
+  private readonly subcommandGroups: DiscordSubcommandGroup[];
+  private readonly subcommands: DiscordSubcommand[];
 
   private subcommandListener = async (
-    interaction: ChatInputCommandInteraction<"cached">,
+    interaction: ChatInputCommandInteraction<"cached">
   ) => {
     const subcommandName = interaction.options.getSubcommand();
     const subcommandGroupName = interaction.options.getSubcommandGroup();
@@ -34,7 +45,7 @@ export class DiscordCommand<
     const s = this.subcommands.find((v) => v.command.name === subcommandName);
 
     const g = this.subcommandGroups.find(
-      (v) => v.command.name === subcommandGroupName,
+      (v) => v.command.name === subcommandGroupName
     );
 
     if (!g) {
@@ -61,19 +72,21 @@ export class DiscordCommand<
     this.command = command(new SlashCommandBuilder());
 
     if (typeof options === "object") {
-      this.subcommandGroups = options.subcommandGroups;
-      this.subcommands = options.subcommands;
       this.listener = this.subcommandListener;
-      for (const subcommand of options.subcommands) {
-        this.command.addSubcommand(subcommand.command);
-      }
-      for (const subcommandGroup of options.subcommandGroups) {
+      this.subcommandGroups = options.subcommandGroups ?? [];
+      this.subcommands = options.subcommands ?? [];
+
+      for (const subcommandGroup of this.subcommandGroups) {
         this.command.addSubcommandGroup(subcommandGroup.command);
       }
+
+      for (const subcommand of this.subcommands) {
+        this.command.addSubcommand(subcommand.command);
+      }
     } else {
+      this.listener = options;
       this.subcommandGroups = [];
       this.subcommands = [];
-      this.listener = options;
     }
   }
 }

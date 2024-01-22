@@ -10,7 +10,7 @@ import { zEnv } from "./utils";
     Object.values(ShardEvents).map((shardEvent) =>
       shard.on(shardEvent, () => {
         console.log(`shard ${shard.id}: ${shardEvent}`);
-      }),
+      })
     );
   });
 
