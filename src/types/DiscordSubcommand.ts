@@ -2,12 +2,11 @@ import {
   ChatInputCommandInteraction,
   SlashCommandSubcommandBuilder,
 } from "discord.js";
+import { DiscordCommandListener } from "./DiscordCommandListener";
 
 export class DiscordSubcommand {
   readonly command: SlashCommandSubcommandBuilder;
-  readonly listener: (
-    interaction: ChatInputCommandInteraction<"cached">
-  ) => Promise<void>;
+  readonly listener: DiscordCommandListener;
   constructor({
     command,
     listener,
@@ -15,9 +14,7 @@ export class DiscordSubcommand {
     command: (
       command: SlashCommandSubcommandBuilder
     ) => SlashCommandSubcommandBuilder;
-    listener: (
-      interaction: ChatInputCommandInteraction<"cached">
-    ) => Promise<void>;
+    listener: DiscordCommandListener;
   }) {
     this.command = command(new SlashCommandSubcommandBuilder());
     this.listener = listener;

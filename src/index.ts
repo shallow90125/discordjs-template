@@ -7,11 +7,11 @@ import { zEnv } from "./utils";
   });
 
   manager.on("shardCreate", (shard) => {
-    Object.values(ShardEvents).map((shardEvent) =>
+    for (const shardEvent of Object.values(ShardEvents)) {
       shard.on(shardEvent, () => {
         console.log(`shard ${shard.id}: ${shardEvent}`);
-      })
-    );
+      });
+    }
   });
 
   await manager.spawn();

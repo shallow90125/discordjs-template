@@ -1,28 +1,38 @@
-import * as events from "@/events";
-import { getCommands, zEnv } from "@/utils";
-import { Client, GatewayIntentBits, Partials } from "discord.js";
+import { events, commands, zEnv } from "@/utils";
+import { Client, GatewayIntentBits } from "discord.js";
 
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.GuildModeration,
+    GatewayIntentBits.GuildEmojisAndStickers,
+    GatewayIntentBits.GuildIntegrations,
+    GatewayIntentBits.GuildWebhooks,
+    GatewayIntentBits.GuildInvites,
     GatewayIntentBits.GuildVoiceStates,
     GatewayIntentBits.GuildPresences,
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.GuildMessageReactions,
-    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildMessageTyping,
     GatewayIntentBits.DirectMessages,
+    GatewayIntentBits.DirectMessageReactions,
+    GatewayIntentBits.DirectMessageTyping,
+    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildScheduledEvents,
+    GatewayIntentBits.AutoModerationConfiguration,
+    GatewayIntentBits.AutoModerationExecution,
   ],
-  partials: [Partials.Message],
+  partials: [
+    // Partials.Message,
+    // Partials.Channel,
+    // Partials.Reaction,
+  ],
 });
 
-const commands = getCommands();
-
-(Object.keys(events) as (keyof typeof events)[]).map((key) =>
-  client.on(events[key].event, (...args) =>
-    events[key].listener(...args).catch(() => {})
-  )
-);
+for (const event of events) {
+  client.on(event.event, (...args) => event.listener(...args).catch(() => {}));
+}
 
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return;

@@ -1,8 +1,8 @@
 import {
-  ChatInputCommandInteraction,
   SlashCommandBuilder,
   SlashCommandSubcommandsOnlyBuilder,
 } from "discord.js";
+import { DiscordCommandListener as Listener } from "./DiscordCommandListener";
 import { DiscordSubcommand } from "./DiscordSubcommand";
 import { DiscordSubcommandGroup } from "./DiscordSubcommandGroup";
 
@@ -14,31 +14,22 @@ type RequireOne<T, K extends keyof T = keyof T> = K extends keyof T
   ? PartialRequire<T, K>
   : never;
 
+type SubcommandOptions = RequireOne<{
+  subcommands?: [DiscordSubcommand, ...DiscordSubcommand[]];
+  subcommandGroups?: [DiscordSubcommandGroup, ...DiscordSubcommandGroup[]];
+}>;
+
 export class DiscordCommand<
-  T extends
-    | ((interaction: ChatInputCommandInteraction<"cached">) => Promise<void>)
-    | RequireOne<{
-        subcommands?: [DiscordSubcommand, ...DiscordSubcommand[]];
-        subcommandGroups?: [
-          DiscordSubcommandGroup,
-          ...DiscordSubcommandGroup[]
-        ];
-      }>
+  T extends Listener | SubcommandOptions = Listener | SubcommandOptions
 > {
-  readonly command: T extends (
-    interaction: ChatInputCommandInteraction<"cached">
-  ) => Promise<void>
+  readonly command: T extends Listener
     ? SlashCommandBuilder
     : SlashCommandSubcommandsOnlyBuilder;
-  readonly listener: (
-    interaction: ChatInputCommandInteraction<"cached">
-  ) => Promise<void>;
+  readonly listener: Listener;
   private readonly subcommandGroups: DiscordSubcommandGroup[];
   private readonly subcommands: DiscordSubcommand[];
 
-  private subcommandListener = async (
-    interaction: ChatInputCommandInteraction<"cached">
-  ) => {
+  private subcommandListener: Listener = async (interaction) => {
     const subcommandName = interaction.options.getSubcommand();
     const subcommandGroupName = interaction.options.getSubcommandGroup();
 
