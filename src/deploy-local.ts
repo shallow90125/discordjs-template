@@ -1,10 +1,10 @@
-import { getCommands, zEnv } from "@/utils";
+import { commands, zEnv } from "@/utils";
 import { REST, Routes } from "discord.js";
 
-const commands = getCommands().map((command) => command.command.toJSON());
-
 (async () => {
-  console.log(`deploy local: start x${commands.length}`);
+  const commandData = commands.map((command) => command.command.toJSON());
+
+  console.log(`deploy local: start x${commandData.length}`);
 
   const rest = new REST().setToken(zEnv.TOKEN);
 
@@ -12,11 +12,11 @@ const commands = getCommands().map((command) => command.command.toJSON());
     await rest.put(
       Routes.applicationGuildCommands(zEnv.CLIENT_ID, zEnv.GUILD_ID),
       {
-        body: commands,
-      },
+        body: commandData,
+      }
     );
 
-    console.log(`deploy local: success x${commands.length}`);
+    console.log(`deploy local: success x${commandData.length}`);
   } catch (error) {
     console.error(error);
   }
