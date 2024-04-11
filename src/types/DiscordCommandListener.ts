@@ -1,5 +1,5 @@
-import { ChatInputCommandInteraction } from "discord.js";
+import type { ChatInputCommandInteraction } from "discord.js";
 
 export type DiscordCommandListener = (
-  interaction: ChatInputCommandInteraction<"cached">
+  interaction: ChatInputCommandInteraction<"cached">,
 ) => Promise<void>;

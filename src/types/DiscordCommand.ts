@@ -1,10 +1,10 @@
 import {
   SlashCommandBuilder,
-  SlashCommandSubcommandsOnlyBuilder,
+  type SlashCommandSubcommandsOnlyBuilder,
 } from "discord.js";
-import { DiscordCommandListener as Listener } from "./DiscordCommandListener";
-import { DiscordSubcommand } from "./DiscordSubcommand";
-import { DiscordSubcommandGroup } from "./DiscordSubcommandGroup";
+import type { DiscordCommandListener as Listener } from "./DiscordCommandListener";
+import type { DiscordSubcommand } from "./DiscordSubcommand";
+import type { DiscordSubcommandGroup } from "./DiscordSubcommandGroup";
 
 type PartialRequire<O, K extends keyof O> = {
   [P in K]-?: O[P];

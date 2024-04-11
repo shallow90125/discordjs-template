@@ -1,8 +1,5 @@
-import {
-  ChatInputCommandInteraction,
-  SlashCommandSubcommandBuilder,
-} from "discord.js";
-import { DiscordCommandListener } from "./DiscordCommandListener";
+import { SlashCommandSubcommandBuilder } from "discord.js";
+import type { DiscordCommandListener } from "./DiscordCommandListener";
 
 export class DiscordSubcommand {
   readonly command: SlashCommandSubcommandBuilder;
@@ -12,7 +9,7 @@ export class DiscordSubcommand {
     listener,
   }: {
     command: (
-      command: SlashCommandSubcommandBuilder
+      command: SlashCommandSubcommandBuilder,
     ) => SlashCommandSubcommandBuilder;
     listener: DiscordCommandListener;
   }) {
