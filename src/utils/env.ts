@@ -1,4 +1,3 @@
-import "dotenv/config";
 import { z } from "zod";
 
 const varSchema = z.string().min(1);
@@ -9,9 +8,4 @@ const envSchema = z.object({
   TOKEN: varSchema,
 });
 
-export const zEnv = envSchema.parse(
-  Object.assign(
-    {},
-    ...Object.keys(process.env).map((v) => ({ [v]: process.env[v] }))
-  )
-);
+export const zEnv = envSchema.parse(process.env);
