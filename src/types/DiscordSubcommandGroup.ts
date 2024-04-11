@@ -1,5 +1,5 @@
 import { SlashCommandSubcommandGroupBuilder } from "discord.js";
-import { DiscordSubcommand } from "./DiscordSubcommand";
+import type { DiscordSubcommand } from "./DiscordSubcommand";
 
 export class DiscordSubcommandGroup {
   readonly command: SlashCommandSubcommandGroupBuilder;
@@ -9,7 +9,7 @@ export class DiscordSubcommandGroup {
     subcommands,
   }: {
     command: (
-      subcommandGroups: SlashCommandSubcommandGroupBuilder
+      subcommandGroups: SlashCommandSubcommandGroupBuilder,
     ) => SlashCommandSubcommandGroupBuilder;
     subcommands: [DiscordSubcommand, ...DiscordSubcommand[]];
   }) {

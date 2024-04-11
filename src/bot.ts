@@ -1,7 +1,9 @@
-import { events, commands, zEnv } from "@/utils";
-import { Client, GatewayIntentBits } from "discord.js";
+import { ClusterClient, getInfo } from "discord-hybrid-sharding";
+import { GatewayIntentBits } from "discord.js";
+import { HybridClient } from "types";
+import { events, commands, zEnv } from "utils";
 
-const client = new Client({
+const client = new HybridClient({
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMembers,
@@ -28,6 +30,8 @@ const client = new Client({
     // Partials.Channel,
     // Partials.Reaction,
   ],
+  shards: getInfo().SHARD_LIST,
+  shardCount: getInfo().TOTAL_SHARDS,
 });
 
 for (const event of events) {
@@ -55,4 +59,6 @@ client.on("interactionCreate", async (interaction) => {
   );
 });
 
-client.login(zEnv.TOKEN);
+client.cluster = new ClusterClient(client);
+
+client.login(zEnv.DISCORD_TOKEN);

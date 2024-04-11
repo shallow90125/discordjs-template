@@ -1,10 +1,10 @@
 import {
   SlashCommandBuilder,
-  SlashCommandSubcommandsOnlyBuilder,
+  type SlashCommandSubcommandsOnlyBuilder,
 } from "discord.js";
-import { DiscordCommandListener as Listener } from "./DiscordCommandListener";
-import { DiscordSubcommand } from "./DiscordSubcommand";
-import { DiscordSubcommandGroup } from "./DiscordSubcommandGroup";
+import type { DiscordCommandListener as Listener } from "./DiscordCommandListener";
+import type { DiscordSubcommand } from "./DiscordSubcommand";
+import type { DiscordSubcommandGroup } from "./DiscordSubcommandGroup";
 
 type PartialRequire<O, K extends keyof O> = {
   [P in K]-?: O[P];
@@ -20,7 +20,7 @@ type SubcommandOptions = RequireOne<{
 }>;
 
 export class DiscordCommand<
-  T extends Listener | SubcommandOptions = Listener | SubcommandOptions
+  T extends Listener | SubcommandOptions = Listener | SubcommandOptions,
 > {
   readonly command: T extends Listener
     ? SlashCommandBuilder
@@ -36,7 +36,7 @@ export class DiscordCommand<
     const s = this.subcommands.find((v) => v.command.name === subcommandName);
 
     const g = this.subcommandGroups.find(
-      (v) => v.command.name === subcommandGroupName
+      (v) => v.command.name === subcommandGroupName,
     );
 
     if (!g) {

@@ -1,5 +1,5 @@
-import { DiscordEvent } from "@/types";
+import { DiscordEvent } from "types";
 
-export const ready = new DiscordEvent("ready", async (client) => {
+export default new DiscordEvent("ready", async (client) => {
   console.log(`ready: ${client.user.id}`);
 });

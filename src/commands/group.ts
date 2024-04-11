@@ -1,4 +1,4 @@
-import { DiscordSubcommandGroup } from "@/types";
+import { DiscordSubcommandGroup } from "types";
 import { subcommand } from "./subcommand";
 
 export const group = new DiscordSubcommandGroup({

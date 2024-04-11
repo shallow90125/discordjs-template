@@ -1,18 +1,20 @@
-import { ShardEvents, ShardingManager } from "discord.js";
-import { zEnv } from "./utils";
+import { ClusterManager } from "discord-hybrid-sharding";
+import { zEnv } from "utils";
 
-(async () => {
-  const manager = new ShardingManager("./out/bot.js", {
-    token: zEnv.TOKEN,
-  });
+const build = await Bun.build({
+  entrypoints: ["src/bot.ts"],
+  outdir: "out",
+  target: "bun",
+});
 
-  manager.on("shardCreate", (shard) => {
-    for (const shardEvent of Object.values(ShardEvents)) {
-      shard.on(shardEvent, () => {
-        console.log(`shard ${shard.id}: ${shardEvent}`);
-      });
-    }
-  });
+if (!build.success) {
+  throw new AggregateError(build.logs);
+}
 
-  await manager.spawn();
-})();
+const manager = new ClusterManager("./out/bot.js", {
+  totalShards: "auto",
+  shardsPerClusters: 2,
+  token: zEnv.DISCORD_TOKEN,
+});
+
+manager.spawn({ timeout: -1 });
