@@ -3,10 +3,9 @@
   "module": "src/index.ts",
   "type": "module",
   "scripts": {
-    "start": "bun dcg && bun src/index.ts",
-    "dev": "bun src/bot.ts",
-    "dcg": "bun src/dcg.ts",
-    "dcl": "bun src/dcl.ts",
+    "start": "bun run dcg && bun run .",
+    "dcg": "bun run src/dcg.ts",
+    "dcl": "bun run src/dcl.ts",
     "check": "biome check --apply src"
   },
   "devDependencies": {

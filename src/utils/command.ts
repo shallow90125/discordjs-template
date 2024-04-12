@@ -1,5 +1,5 @@
 import { Glob } from "bun";
-import { DiscordCommand } from "types";
+import { DiscordCommand } from "types/discord";
 
 export const commands: DiscordCommand[] = [];
 

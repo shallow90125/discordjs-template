@@ -1,5 +1,5 @@
 import { Glob } from "bun";
-import { DiscordEvent } from "types";
+import { DiscordEvent } from "types/discord";
 
 export const events: DiscordEvent[] = [];
 

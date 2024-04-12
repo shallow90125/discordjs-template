@@ -1,4 +1,4 @@
-import { DiscordSubcommand } from "types";
+import { DiscordSubcommand } from "types/discord";
 
 export const subcommand = new DiscordSubcommand({
   command: (command) => command.setName("sub").setDescription("sub"),
