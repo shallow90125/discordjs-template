@@ -1,6 +1,6 @@
 import { ClusterClient, getInfo } from "discord-hybrid-sharding";
 import { GatewayIntentBits } from "discord.js";
-import { HybridClient } from "types";
+import { type DiscordCommand, HybridClient } from "types/discord";
 import { events, commands, zEnv } from "utils";
 
 const client = new HybridClient({
@@ -42,8 +42,8 @@ client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
   if (!interaction.inCachedGuild()) return;
 
-  const command = commands.find(
-    (command) => command.command.name === interaction.commandName
+  const command: DiscordCommand | undefined = commands.find(
+    (command) => command.command.name === interaction.commandName,
   );
 
   if (!command) return;
@@ -55,7 +55,7 @@ client.on("interactionCreate", async (interaction) => {
           content: `${error}`,
           ephemeral: true,
         })
-        .catch(() => {})
+        .catch(() => {}),
   );
 });
 
