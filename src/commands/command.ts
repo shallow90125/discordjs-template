@@ -1,4 +1,4 @@
-import { DiscordCommand } from "types";
+import { DiscordCommand } from "types/discord";
 import { group } from "./group";
 import { subcommand } from "./subcommand";
 
