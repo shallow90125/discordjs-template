@@ -20,7 +20,7 @@ type SubcommandOptions = RequireOne<{
 }>;
 
 export class DiscordCommand<
-  T extends Listener | SubcommandOptions = Listener | SubcommandOptions,
+  T extends Listener | SubcommandOptions = Listener | SubcommandOptions
 > {
   readonly command: T extends Listener
     ? SlashCommandBuilder
@@ -36,7 +36,7 @@ export class DiscordCommand<
     const s = this.subcommands.find((v) => v.command.name === subcommandName);
 
     const g = this.subcommandGroups.find(
-      (v) => v.command.name === subcommandGroupName,
+      (v) => v.command.name === subcommandGroupName
     );
 
     if (!g) {
