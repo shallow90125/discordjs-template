@@ -1,7 +1,6 @@
 import { REST, Routes } from "discord.js";
-import { commands, zEnv } from "utils";
-
-const commandData = commands.map((command) => command.command.toJSON());
+import { commands } from "utils/discord";
+import { zEnv } from "utils/env";
 
 const rest = new REST().setToken(zEnv.DISCORD_TOKEN);
 
@@ -11,8 +10,8 @@ await rest.put(
     zEnv.DISCORD_GUILD_ID,
   ),
   {
-    body: commandData,
+    body: commands,
   },
 );
 
-console.log(`deploy commands locally: x${commandData.length}`);
+console.log(`deploy commands locally: x${commands.length}`);

@@ -1,23 +1,21 @@
-import { SlashCommandSubcommandGroupBuilder } from "discord.js";
-import type { DiscordSubcommand } from "./DiscordSubcommand";
+import {
+  type APIApplicationCommandSubcommandGroupOption,
+  ApplicationCommandOptionType,
+} from "discord.js";
+import type { SomeRequired } from ".";
 
 export class DiscordSubcommandGroup {
-  readonly command: SlashCommandSubcommandGroupBuilder;
-  readonly subcommands: [DiscordSubcommand, ...DiscordSubcommand[]];
+  readonly option: SomeRequired<
+    APIApplicationCommandSubcommandGroupOption,
+    "options"
+  >;
   constructor({
-    command,
-    subcommands,
-  }: {
-    command: (
-      subcommandGroups: SlashCommandSubcommandGroupBuilder,
-    ) => SlashCommandSubcommandGroupBuilder;
-    subcommands: [DiscordSubcommand, ...DiscordSubcommand[]];
-  }) {
-    this.subcommands = subcommands;
-    this.command = command(new SlashCommandSubcommandGroupBuilder());
-
-    for (const subcommand of this.subcommands) {
-      this.command.addSubcommand(subcommand.command);
-    }
+    ...option
+  }: Omit<APIApplicationCommandSubcommandGroupOption, "type">) {
+    this.option = {
+      type: ApplicationCommandOptionType.SubcommandGroup,
+      options: [],
+      ...option,
+    };
   }
 }
