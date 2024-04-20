@@ -1,5 +1,5 @@
 import { ClusterManager } from "discord-hybrid-sharding";
-import { zEnv } from "utils";
+import { zEnv } from "utils/env";
 
 const manager = new ClusterManager("src/bot.ts", {
   totalShards: "auto",

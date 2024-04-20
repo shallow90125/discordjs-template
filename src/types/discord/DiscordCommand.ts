@@ -14,7 +14,7 @@ export class DiscordCommand {
   }: RESTPostAPIChatInputApplicationCommandsJSONBody & {
     listener?: DiscordCommandListener;
   }) {
-    this.option = { ...option, options: [] };
+    this.option = { options: [], ...option };
     this.listener = option.listener;
   }
 }
