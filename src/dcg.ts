@@ -1,11 +1,10 @@
-import { REST, Routes } from "discord.js";
-import { commands } from "utils/discord";
-import { zEnv } from "utils/env";
+import { commands } from '@/lib/discord'
+import { REST, Routes } from 'discord.js'
 
-const rest = new REST().setToken(zEnv.DISCORD_TOKEN);
+const rest = new REST().setToken(process.env.DISCORD_TOKEN)
 
-await rest.put(Routes.applicationCommands(zEnv.DISCORD_CLIENT_ID), {
+await rest.put(Routes.applicationCommands(process.env.DISCORD_CLIENT_ID), {
   body: commands,
-});
+})
 
-console.log(`deploy commands globally: x${commands.length}`);
+console.log(`deploy commands globally: x${commands.length}`)
