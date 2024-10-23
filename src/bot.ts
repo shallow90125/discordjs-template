@@ -1,8 +1,6 @@
-import { ClusterClient, getInfo } from "discord-hybrid-sharding";
-import { GatewayIntentBits } from "discord.js";
-import { DiscordHybridClient } from "types/discord";
-import { events, listeners } from "utils/discord";
-import { zEnv } from "utils/env";
+import { DiscordHybridClient, events, listeners } from '@/lib/discord'
+import { GatewayIntentBits } from 'discord.js'
+import { ClusterClient, getInfo } from 'discord-hybrid-sharding'
 
 const client = new DiscordHybridClient({
   intents: [
@@ -25,39 +23,54 @@ const client = new DiscordHybridClient({
     GatewayIntentBits.GuildScheduledEvents,
     GatewayIntentBits.AutoModerationConfiguration,
     GatewayIntentBits.AutoModerationExecution,
+    GatewayIntentBits.GuildMessagePolls,
+    GatewayIntentBits.DirectMessagePolls,
   ],
   partials: [
-    // Partials.Message,
+    // Partials.User,
     // Partials.Channel,
+    // Partials.GuildMember,
+    // Partials.Message,
     // Partials.Reaction,
+    // Partials.GuildScheduledEvent,
+    // Partials.ThreadMember,
   ],
-  shards: getInfo().SHARD_LIST,
   shardCount: getInfo().TOTAL_SHARDS,
-});
+  shards: getInfo().SHARD_LIST,
+})
 
 for (const event of events) {
-  client.on(event.event, (...args) => event.listener(...args).catch(() => {}));
+  client.on(event.event, (...args) => event.listener(...args).catch(() => {}))
 }
 
-client.on("interactionCreate", async (interaction) => {
-  if (!interaction.isChatInputCommand()) return;
-  if (!interaction.inCachedGuild()) return;
+client.once('ready', async (client) => {
+  console.log(`ready: ${client.user.tag}, ${client.user.id}`)
+})
 
-  const listener = listeners[interaction.commandName];
+client.on('interactionCreate', async (interaction) => {
+  if (!interaction.isChatInputCommand()) return
+  if (!interaction.inCachedGuild()) return
 
-  if (!listener) return;
+  const listener = listeners[interaction.commandName]
+
+  if (!listener) return
 
   await listener(interaction).catch(
-    async (error) =>
+    async (error: string) =>
       await interaction
         .reply({
-          content: `${error}`,
+          content: `🔸 ${error}`,
           ephemeral: true,
         })
-        .catch(() => {}),
-  );
-});
+        .catch(
+          async () =>
+            await interaction.editReply({
+              content: `🔸 ${error}`,
+            }),
+        ),
+  )
+})
 
-client.cluster = new ClusterClient(client);
+client.cluster = new ClusterClient(client)
 
-client.login(zEnv.DISCORD_TOKEN);
+client.login(process.env.DISCORD_TOKEN)

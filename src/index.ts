@@ -1,10 +1,9 @@
-import { ClusterManager } from "discord-hybrid-sharding";
-import { zEnv } from "utils/env";
+import { ClusterManager } from 'discord-hybrid-sharding'
 
-const manager = new ClusterManager("src/bot.ts", {
-  totalShards: "auto",
+const manager = new ClusterManager('src/bot.ts', {
   shardsPerClusters: 2,
-  token: zEnv.DISCORD_TOKEN,
-});
+  token: process.env.DISCORD_TOKEN,
+  totalShards: 'auto',
+})
 
-manager.spawn({ timeout: -1 });
+manager.spawn({ timeout: -1 })
