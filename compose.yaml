@@ -1,4 +1,0 @@
-services:
-  bun:
-    build: .
-    restart: always
